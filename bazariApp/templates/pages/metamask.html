@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>PaymentGateway</title>
+    
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- Custom stylesheets -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+    <script src="{% static 'js/metamask.js' %}"></script>
+    
+
+</head>
+<body>
+<link rel="stylesheet" href="{% static 'css/metamask.css' %}">
+<div class="container" id="pay" >
+    <div class="box col-lg-12 col-md-8 col-12">
+        <i class="fa2">
+            <img width="50px" height="50px" src="https://cdn.iconscout.com/icon/free/png-512/free-metamask-2728406-2261817.png?f=webp&w=256" alt="MetaMask Icon">
+        </i>
+        <div class="text">
+            <i class="fa1">
+                <img width="50px" height="50px" src="https://cdn.iconscout.com/icon/free/png-512/free-metamask-2728406-2261817.png?f=webp&w=256" alt="MetaMask Icon">
+            </i>
+            <div class="col-xs-12">
+                <h3>CONTRACT</h3>
+                <p id="pricehide">{{ cart.total_price }}</p>
+                <p id="price"></p>
+                <p id="quoteText"></p>
+                <button class="btn btn-primary" onclick="copyText()">Copy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyText() {
+        var text = document.getElementById('quoteText').innerText;
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        Swal.fire({
+            title: "Good job!",
+            text: "Text copied to clipboard",
+            icon: "success"
+            });
+        
+    }
+   
+</script>
+  <!--fontawesome-->
+  <script src="https://kit.fontawesome.com/63c9b41866.js" crossorigin="anonymous"></script>
+
+    <!-- popper js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <!-- owl slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!--Online bootsrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js"></script>
+
+</body>
+</html>

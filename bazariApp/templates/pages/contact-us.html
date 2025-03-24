@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Bazari - Contact Us</title>
+  <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+  
+  <link rel="stylesheet" href="{% static 'css_contact/bootstrap.min.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css_contact/style.css' %}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.15.10/sweetalert2.css" 
+  integrity="sha512-aT8kGTpksA05BegcQmkwCB142bJ9VHx8RAdt4FsCxivASGHCKrI3o1KX5oftKK8J8oZ5v450UtJPp66EJhEuHA==" 
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.15.10/sweetalert2.min.js" 
+  integrity="sha512-M60HsJC4M4A8pgBOj7oC/lvJXuOc9CraWXdD4PF+KNmKl8/Mnz6AH9FANgi4SJM6D9rqPvgQt4KRFR1rPN+EUw==" 
+  crossorigin="anonymous" referrerpolicy="no-referrer">
+  </script>
+
+</head>
+
+<body>
+ 
+
+  {% if contact_sent %}
+  <script>
+    Swal.fire({
+      title: "Good job!",
+      text: "Your message has been sent successfully!",
+      icon: "success"
+    });
+  </script>
+  {% endif %}
+
+  <div class="content">
+    <div class="container">
+      <div class="row justify-content-center">
+        
+        <div class="col-md-10">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+              
+              <h3 class="heading mb-4">Let's talk about everything!</h3>
+              <p></p>
+
+              <p><img src="{% static 'images/undraw-contact.svg' %}" alt="Image" class="img-fluid"></p>
+
+
+            </div>
+            <div class="col-md-6">
+                <form class="mb-5" method="post" id="contactForm">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" name="Name" id="name" placeholder="Your name" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <input type="tel" class="form-control" name="Phone" id="phone" placeholder="Phone number" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <input type="email" class="form-control" name="Email" id="email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <textarea class="form-control" name="Message" id="message" cols="30" rows="7" placeholder="Write your message" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary rounded-0 py-2 px-4" name="submit">Send Message</button>
+                            
+                            <!-- Cancel button with JavaScript -->
+                            <button type="submit" class="btn btn-danger rounded-0 py-2 px-4" name="cancel" onclick="cancelForm()">Cancel</button>
+                            
+                            <span class="submitting"></span>
+                        </div>
+                    </div>
+                </form>
+                
+               
+                
+                  
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function cancelForm() {
+        const form = document.getElementById("contactForm");
+        form.setAttribute("novalidate", "novalidate"); 
+    }
+</script>
+  <script src="{% static 'js_contact/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js_contact/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js_contact/main.js' %}"></script>
+</body>
+</html>

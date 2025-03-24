@@ -1,0 +1,72 @@
+{% load custom_filters %}
+                <style>
+                .productimage {
+                  width: 100%; /* Adjusts the width to 100% of the container */
+                  height: 300px; /* Sets a fixed height for all images */
+                  object-fit: cover; /* Ensures the image covers the area without distortion */
+                }
+              </style>
+<section id="best-sellers" class="best-sellers product-carousel py-5 position-relative overflow-hidden">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
+        <h4 class="text-uppercase">Best Selling Items</h4>
+        <a href="" class="btn-link">View All Products</a>
+      </div>
+      <div class="swiper product-swiper open-up" data-aos="zoom-out">
+        <div class="swiper-wrapper d-flex">
+          
+            {% for product in products%}
+            <div class="swiper-slide">
+                <div class="product-item image-zoom-effect link-effect">
+                  <div class="image-holder">
+                    <a href="">
+                      <img src="{{ product.Picture_main.url }}" alt="product" class="productimage img-fluid rounded">
+                    </a>
+                    <a href="" class="btn-icon btn-wishlist">
+                      <svg width="24" height="24" viewBox="0 0 24 24">
+                        <use xlink:href="#heart"></use>
+                      </svg>
+                    </a>
+                    <div class="product-content py-4 d-flex flex-column">
+                      <h5 class="text-uppercase fs-5 mt-3 flex-grow-1">
+                        <a href="">{{ product.Name|capitalize_first|reduce:15  }}</a>
+                      </h5>
+                      
+                      {% if status_log == True %}
+                      <a href="{% url 'add_to_cart' product.pk %}" class="fs-6 text-decoration-none d-flex align-items-center" data-after="Add to cart">
+                        <span>{{product.Price}} DHS</span>
+                      </a>
+                      {% else %}
+                      <a href="{% url 'login' %}" class="fs-6 text-decoration-none d-flex align-items-center" data-after="Add to cart">
+                        <span>{{product.Price}} DHS</span>
+                      </a>
+                      {% endif %}
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+              
+              
+          {% endfor %}
+          
+          
+          
+          
+          
+
+          
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
+          <use xlink:href="#arrow-left"></use>
+        </svg></div>
+      <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
+          <use xlink:href="#arrow-right"></use>
+        </svg></div>
+    </div>
+  </section>

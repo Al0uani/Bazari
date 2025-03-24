@@ -1,0 +1,42 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<div id="sign_in">
+    <form method="POST">
+        {% csrf_token %}
+      <span class="span1 nav-link">Sign In</span>
+      <div id="field" class="input-group">
+        <label class="input-group-text"><i class="fas fa-envelope-open"></i></label>
+        <input type="text" name="email" class="form-control" placeholder="email" required />
+      </div>
+
+      <div id="field" class="input-group">
+        <label class="input-group-text"><i class="fas fa-lock"></i></label>
+        <input type="password" name="password" class="form-control" placeholder="Password" required/>
+      </div>
+
+      <div id="field">
+        <input type="submit" class="btn w-100" value="Log in" name="connexion" />
+      </div>
+      {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+      <div class="alert {{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+  
+    </form>
+    <p>
+      New Member?
+      <button ><a href="{% url 'signup' %}">SignUp</a></button>
+      <i class="fas fa-arrow-right"></i>
+    </p>
+  </div>
+{% endblock content %}

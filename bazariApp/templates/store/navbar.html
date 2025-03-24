@@ -1,0 +1,110 @@
+<nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom align-items-center">
+    <div class="container-fluid">
+      <div class="row justify-content-between align-items-center w-100">
+        <style>
+          .navbar-brand {
+  text-transform: none !important;
+}
+        </style>
+        <div class="col-auto">
+          <a class="navbar-brand mrs-saint-delafield-regular" href="{% url 'home'%}">
+            Bazari
+          </a>
+        </div>
+
+        <div class="col-auto">
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+            </div>
+
+
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
+                
+                  <a class="nav-link " href="{% url 'home'%}" id="dropdownHome">Home</a>
+                  <a class="nav-link " href="{% url 'products'%}" id="dropdownHome">Shop</a>
+                 
+                
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdownBlog" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Blog</a>
+                  <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownBlog">
+                    <li>
+                      <a href="index.html" class="dropdown-item item-anchor">Blog Classic </a>
+                    </li>
+                  </ul>
+                </li>
+                <a class="nav-link " href="{% url 'contactus'%}" id="dropdownHome">Contact US</a>
+                <li class="nav-item dropdown">
+                  {% if status_log %}
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">{{ username }}
+    
+                    <img src="{{ pfp }}" alt="Profile Picture" class="rounded-circle me-2" style="width: 30px; height: 30px;">
+                  
+                  </a>
+                  <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
+                    <li></li>
+                      <a href="{% url 'addproduct' %}" class="dropdown-item item-anchor">Add Product </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'logout' %}" class="dropdown-item item-anchor">Log-Out </a>
+                    </li>
+                    
+                  </ul>
+                </li>
+                {% endif %}
+
+
+
+              </ul>
+            </div>
+          </div>
+
+          
+        </div>
+        
+        <div class="col-3 col-lg-auto">
+          <ul class="list-unstyled d-flex m-0">
+            {% if  not  status_log %}
+            <li class="d-none d-lg-block ">
+              <a href="{% url 'login'%}" class="text-uppercase mx-3">Sign IN</span>
+              </a>
+            </li>
+            {%else %}
+            <li class="d-none d-lg-block">
+              <a href="index.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
+                aria-controls="offcanvasCart">Cart <span class="cart-count">({{ cart.total_items }})</span>
+              </a>
+            </li>
+            <li class="d-lg-none">
+              <a href="#" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
+                aria-controls="offcanvasCart">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <use xlink:href="#cart"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="search-box" class="mx-2">
+              <a href="#search" class="search-button">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <use xlink:href="#search"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </nav>

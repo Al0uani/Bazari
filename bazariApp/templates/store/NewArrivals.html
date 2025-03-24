@@ -1,0 +1,53 @@
+{% load custom_filters %}
+<section id="billboard" class=" py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <h1 class="section-title text-center mt-4" data-aos="fade-up">New Arrivals</h1>
+        <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
+          <p>Discover our latest arrivals – a curated collection of artisanal crafts and unique artworks, each piece a testament to creativity and craftsmanship. 
+            <br>Explore the beauty of artistry today!</p>
+            <br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="swiper main-swiper py-4" data-aos="fade-up" data-aos-delay="600">
+          <div class="swiper-wrapper d-flex border-animation-left">
+            {% for product in products%}
+            <div class="swiper-slide">
+              <div class="banner-item image-zoom-effect d-flex flex-column justify-content-between h-100">
+                <div class="image-holder">
+                  <a href="#">
+                    <img src="{{ product.Picture_main.url }}" alt="product" class="img-fluid rounded" style="width: auto; height: 500px;">
+                  </a>
+                </div>
+                <div class="banner-content py-4">
+                  <h5 class="element-title text-uppercase">
+                    <a href="index.html" class="item-anchor">{{product.Name|capitalize_first}}</a>
+                  </h5>
+                  <p class="flex-grow-1" >
+                    {{ product.Description|slice:":70"|capitalize_first }} ...</p>
+                  <div class="btn-left ">
+                    {% if not status_log %}
+                    <a class="btn-link fs-6 text-uppercase item-anchor text-decoration-none" onclick="popUp()">Discover Now</a>
+                    {% else %}
+                    <a href="{% url 'products' %}" class="btn-link fs-6 text-uppercase item-anchor text-decoration-none" >Discover Now</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>     
+        <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
+            <use xlink:href="#arrow-left"></use>
+          </svg></div>
+        <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
+            <use xlink:href="#arrow-right"></use>
+          </svg></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function popUp(){swal("What are you waiting for", "SignUp to find out more !");}</script>
+  </script>

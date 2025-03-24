@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>PaymentGateway</title>
+    
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- Custom stylesheets -->
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+
+    <script src="{% static 'js/metamask.js' %}"></script>
+    <script>
+        window.addEventListener('load', function () {
+    document.getElementById('pricehide').style.display = 'none';
+    if (typeof window.ethereum === 'undefined') {
+        var label = document.getElementById('metamask');
+        var Span = document.getElementById('idspan');
+        label.disabled = true;
+        label.style.color = 'gray';
+        Span.innerText = "Not Installed";
+        label.style.pointerEvents = 'none';
+    }
+});
+    </script>
+
+</head>
+<body>
+  
+
+
+    <!--Payment panel-->
+    <div class="container" id="pay" >
+        <div class="title">
+            <h4>Select a <span style="color: #6064b6">Payment</span> method</h4>
+        </div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="radio" name="payment" id="visa" value="visa" required>
+            <input type="radio" name="payment" id="mastercard" value="mastercard">
+            <input type="radio" name="payment" id="paypal" value="paypal">
+            <input type="radio" name="payment" id="AMEX" value="metamask">
+
+
+            <div class="category">
+                <label for="visa" class="visaMethod">
+                    <div class="imgName">
+                        <div class="imgContainer visa">
+                            <img src="https://i.ibb.co/vjQCN4y/Visa-Card.png" alt="">
+                        </div>
+                        <span class="name">VISA</span>
+                    </div>
+                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+                </label>
+
+                <label for="mastercard" class="mastercardMethod">
+                    <div class="imgName">
+                        <div class="imgContainer mastercard">
+                            <img src="https://i.ibb.co/vdbBkgT/mastercard.jpg" alt="">
+                        </div>
+                        <span class="name">Mastercard</span>
+                    </div>
+                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+                </label>
+
+                <label for="paypal" class="paypalMethod">
+                    <div class="imgName">
+                        <div class="imgContainer paypal">
+                            <img src="https://i.ibb.co/KVF3mr1/paypal.png" alt="">
+                        </div>
+                        <span class="name">Paypal</span>
+                    </div>
+                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+                </label>
+
+                <label for="AMEX" class="amexMethod" id="metamask">
+                    <div class="imgName">
+                        <div class="imgContainer AMEX">
+                            <img src="https://cdn.iconscout.com/icon/free/png-512/free-metamask-2728406-2261817.png?f=webp&w=256" alt="">
+                        </div>
+                        <span class="name" id="idspan">MetaMask</span>
+                    </div>
+                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+                </label>
+            </div>
+            <center><button type="submit" class="Btn" name="subbtn">Pay
+                <svg class="svgIcon" viewBox="0 0 576 512"><path d="M512 80c8.8 0 16 7.2 16 16v32H48V96c0-8.8 7.2-16 16-16H512zm16 144V416c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V224H528zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm56 304c-13.3 0-24 10.7-24 24s10.7 24 24 24h48c13.3 0 24-10.7 24-24s-10.7-24-24-24H120zm128 0c-13.3 0-24 10.7-24 24s10.7 24 24 24H360c13.3 0 24-10.7 24-24s-10.7-24-24-24H248z"></path></svg>
+            </button></center>
+        </form>
+    </div>
+    <!---Payment Panel end-->
+    
+   
+    <!--fontawesome-->
+    <script src="https://kit.fontawesome.com/63c9b41866.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

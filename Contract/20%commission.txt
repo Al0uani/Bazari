@@ -1,0 +1,33 @@
+pragma solidity ^0.8.15;
+// SPDX-License-Identifier: MIT
+
+contract PaymentSplitter {
+    address payable[] public recipients;
+    event TransferReceived(address _from, uint _amount);
+
+    constructor(address payable[] memory _addrs) {
+        require(_addrs.length > 1, "There must be at least two recipients.");
+        for (uint i = 0; i < _addrs.length; i++) {
+            recipients.push(_addrs[i]);
+        }
+    }
+
+    receive() external payable {
+        require(recipients.length > 1, "Insufficient recipients.");
+
+        uint256 totalAmount = msg.value;
+        uint256 firstShare = (totalAmount * 20) / 100; // 20% for the first recipient
+        uint256 remainingAmount = totalAmount - firstShare;
+        uint256 sharePerOther = remainingAmount / (recipients.length - 1);
+
+        // Transfer 20% to the first recipient
+        recipients[0].transfer(firstShare);
+
+        // Distribute the remaining 80% equally among the other recipients
+        for (uint i = 1; i < recipients.length; i++) {
+            recipients[i].transfer(sharePerOther);
+        }
+
+        emit TransferReceived(msg.sender, totalAmount);
+    }
+}

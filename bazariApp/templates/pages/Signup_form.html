@@ -1,0 +1,91 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <form method="POST" enctype="multipart/form-data" id="signup-form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div class="row justify-content-center">
+                <!-- Profile Sidebar (Left) -->
+                <div class="col-12 col-md-4 d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img id="profile-pic" class="rounded-circle mt-3 profile-pic img-fluid" 
+                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" 
+                         alt="Profile Picture">
+                    
+                    <label for="profile-pic-input" class="btn btn-outline-primary mt-3">Upload Picture</label>
+                    <input id="profile-pic-input" type="file" accept="image/*" name="Pfp" class="d-none">
+                </div>
+
+                <!-- Form Section (Right) -->
+                <div class="col-12 col-md-6">
+                    <div class="p-3 py-5">
+                        <h4 class="text-center mb-4">Sign Up</h4>
+
+                        <div class="form-grid">
+                            {% for field in form %}
+                            {% if field.name != "Pfp" %} <!-- Skip rendering the profile picture input field -->
+                                <div class="form-item">
+                                    <label class="form-label">{{ field.label }}</label>
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="error text-danger">{{ field.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button id="signup-btn" class="btn custom-btn w-100" type="submit" disabled>Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("signup-form");
+        const inputs = Array.from(form.querySelectorAll("input, select, textarea"));
+        const profilePicInput = document.getElementById("profile-pic-input");
+        const profilePic = document.getElementById("profile-pic");
+        const signupBtn = document.getElementById("signup-btn");
+
+        // Check if all fields are filled and profile picture is set
+        function checkFormCompletion() {
+            const areFieldsFilled = inputs.every(input => input.value.trim() !== "" || input.type === "file");
+            const isProfilePicSet = form.querySelector("input[name='Pfp']").files.length > 0;  // Check if file is selected
+            signupBtn.disabled = !(areFieldsFilled && isProfilePicSet);
+        }
+
+        // Listen for input changes
+        inputs.forEach(input => {
+            input.addEventListener("input", checkFormCompletion);
+        });
+
+        // Handle profile picture upload
+        profilePicInput.addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    profilePic.src = e.target.result;  // Set the preview image
+                    checkFormCompletion();  // Re-check form completion
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Initial check for form completion
+        checkFormCompletion();
+    });
+</script>
+{% endblock content %}

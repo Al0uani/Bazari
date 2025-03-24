@@ -1,0 +1,93 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="container my-4">
+    <h1 class="text-center mb-4">Add Product</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Left Side - Product Information -->
+            <div class="col-md-8">
+                {% for field in form %}
+                    {% if field.name != 'Picture_main' and field.name != 'Picture_second' and field.name != 'Picture_third' %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {% if field.name == 'Description' %}
+                                <!-- Make the description field smaller -->
+                                <textarea class="form-control form-control-sm" id="{{ field.id_for_label }}" name="{{ field.name }}" rows="4" placeholder="Enter product description"></textarea>
+                                {% elif field.name == 'category' %}
+                                <!-- Dropdown menu for category -->
+                                <select class="form-control form-control-sm" id="{{ field.id_for_label }}" name="{{ field.name }}">
+                                    <option value="" disabled {% if not field.value %}selected{% endif %}>Select a category</option>
+                                    {% for value, label in field.field.choices %}
+                                        <option value="{{ value }}" {% if field.value == value %}selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% else %}
+                                <input type="text" class="form-control form-control-sm" id="{{ field.id_for_label }}" name="{{ field.name }}"  placeholder="Enter {{ field.label }}">
+                            {% endif %}
+                            {% if field.errors %}
+                                <small class="text-danger">{{ field.errors }}</small>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Right Side - Image Upload Fields with Previews -->
+            <div class="col-md-4">
+                {% for field in form %}
+                    {% if field.name == 'Picture_main' or field.name == 'Picture_second' or field.name == 'Picture_third' %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            <input type="file" class="form-control form-control-sm" id="{{ field.id_for_label }}" name="{{ field.name }}" onchange="previewImage(event, '{{ field.id_for_label }}')">
+                            <div id="{{ field.id_for_label }}_preview" class="mt-2">
+                                <!-- Image preview will appear here -->
+                            </div>
+                            {% if field.errors %}
+                                <small class="text-danger">{{ field.errors }}</small>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary w-100">Add Product</button>
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+    // JavaScript function to preview image before upload
+    function previewImage(event, inputId) {
+        const file = event.target.files[0];
+        const previewContainer = document.getElementById(inputId + '_preview');
+        
+        // Check if a file was selected
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                // Create an img element to display the preview
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.classList.add('img-fluid');
+                img.classList.add('rounded');
+                img.style.maxWidth = '20%';
+                previewContainer.innerHTML = ''; // Clear any previous preview
+                previewContainer.appendChild(img);
+            };
+            
+            reader.readAsDataURL(file);
+        } else {
+            previewContainer.innerHTML = ''; // Clear the preview if no file is selected
+        }
+    }
+</script>
+{% endblock content %}
