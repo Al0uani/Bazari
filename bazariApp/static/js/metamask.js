@@ -41,63 +41,14 @@ async function checkContractEvents() {
             return;
         }
 
-        const contractABI = [
-            {
-                "inputs": [
-                    {
-                        "internalType": "address payable[]",
-                        "name": "_addrs",
-                        "type": "address[]"
-                    }
-                ],
-                "stateMutability": "nonpayable",
-                "type": "constructor"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": false,
-                        "internalType": "address",
-                        "name": "_from",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "internalType": "uint256",
-                        "name": "_amount",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "TransferReceived",
-                "type": "event"
-            },
-            {
-                "stateMutability": "payable",
-                "type": "receive"
-            },
-            {
-                "inputs": [],
-                "name": "recipients",
-                "outputs": [
-                    {
-                        "internalType": "address payable[]",
-                        "name": "",
-                        "type": "address[]"
-                    }
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            }
-        ];
+        const contractABI = [ ];
         var mt = document.getElementById('pricehide');
         var value = parseFloat(mt.textContent);
         console.log(value);
         const topay = await getUSDValue()*value;
-        // 20% commission contract : 0xe115A1ECd1c951C59601Db4f8E7aF8D32EEC2ac2
-        // 50 % commission contract : 0x81709A5DFB8F96Cd555Ad5Ce689E788307a68f1d
+     
 
-        const contractAddress = "0xe115A1ECd1c951C59601Db4f8E7aF8D32EEC2ac2";
+        const contractAddress = " ";
         document.getElementById('quoteText').innerHTML = `${contractAddress}`;
         document.getElementById('price').innerHTML = `MT: ${Math.ceil(topay)} USD`;
         const contract = new web3.eth.Contract(contractABI, contractAddress);
